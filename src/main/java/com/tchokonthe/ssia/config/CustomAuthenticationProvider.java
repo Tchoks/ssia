@@ -1,4 +1,4 @@
-package com.tchokonthe.ssia;
+package com.tchokonthe.ssia.config;
 
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,7 +18,6 @@ import java.util.List;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

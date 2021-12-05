@@ -1,6 +1,0 @@
-server:
-  ssl:
-    enabled: true
-    key-store: classpath:keystore.jks
-    key-store-password: bafang
-    key-alias: localhostcert

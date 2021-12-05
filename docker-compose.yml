@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    container_name: mysql_db
+#    build:
+#      context: ./certs
+    image: mysql
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQLDB_USER=$MYSQLDB_USER
+    ports:
+      - "3306:3306"
+#    command: [ "mysqld",
+#               "--character-set-server=utf8mb4",
+#               "--collation-server=utf8mb4_unicode_ci",
+#               "--bind-address=0.0.0.0",
+#               "--log-error-verbosity",
+#               "--require_secure_transport=ON",
+#               "--ssl-ca=/etc/ssl/certs/ca.pem",
+#               "--ssl-cert=/etc/ssl/certs/server-cert.pem",
+#               "--ssl-key=/etc/ssl/certs/server-key.pem",
+#               "--default_authentication_plugin=mysql_native_password" ]
+#    volumes:
+#      - type: bind
+#        source: ./certs/ssl
+#        target: /etc/ssl/certs/
+#      - ./certs/mysql/my.cnf:/etc/mysql/my.cnf
+
+    #    command:
+    #      - './bin/bash -c chmod 444 /etc/certs/ca-cert.pem; chmod 444 /etc/certs/client-cert.pem; chmod 400 /etc/certs/client-key.pem; chmod 444 /etc/certs/server-cert.pem; chmod 400 /etc/certs/server-key.pem;'
+    healthcheck:
+      test: [ "CMD-SHELL", "mysql -u$MYSQLDB_USER -p$MYSQL_ROOT_PASSWORD content -e 'select 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spring-boot-simple
+
+  app:
+    container_name: ssia
+    restart: on-failure
+    env_file: .env
+    build:
+      context: .
+    environment:
+      SPRING_APPLICATION_JSON: '{
+              "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?allowPublicKeyRetrieval=true&useSSL=false",
+              "spring.datasource.username" : "$MYSQLDB_USER",
+              "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
+              "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+              "spring.profiles.active" : "docker"
+            }'
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-boot-simple
+    depends_on:
+      - mysqldb
+    healthcheck:
+      test: [ "CMD", "curl", "--fail --silent", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+networks:
+  spring-boot-simple:

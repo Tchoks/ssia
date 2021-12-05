@@ -1,0 +1,15 @@
+https://www.techrunnr.com/connect-mysql-server-from-spring-boot-application-with-ssl/
+
+[client]
+ssl-ca=ca.pem
+ssl-cert=client-cert.pem
+ssl-key=client-key.pem
+[mysqld]
+ssl-ca=ca.pem
+ssl-cert=server-cert.pem
+ssl-key=server-key.pem
+
+mysql  -u root -p \
+        --ssl-ca=/etc/ssl/certs/ca.pem \
+        --ssl-cert=/etc/ssl/certs/client-cert.pem \
+        --ssl-key=/etc/ssl/certs/client-key.pem

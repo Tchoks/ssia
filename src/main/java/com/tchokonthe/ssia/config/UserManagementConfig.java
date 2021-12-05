@@ -1,4 +1,4 @@
-package com.tchokonthe.ssia;
+package com.tchokonthe.ssia.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,17 +17,17 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  */
 
 
-@Configuration
-public class UserManagementConfig {
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        final UserDetails userDetails = User.withUsername("john").password("{noop}12345").authorities("read").build();
-        return new InMemoryUserDetailsManager(userDetails);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-}
+//@Configuration
+//public class UserManagementConfig {
+//
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        final UserDetails userDetails = User.withUsername("john").password("{noop}12345").authorities("read").build();
+//        return new InMemoryUserDetailsManager(userDetails);
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
+//}

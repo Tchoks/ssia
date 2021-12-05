@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: spring security in action
+  jpa:
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+    database: mysql
+    show-sql: true
+  sql:
+    init:
+      mode: always
+
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.jks
+    key-store-password: bafang
+    key-alias: localhostcert
+  port: 8081

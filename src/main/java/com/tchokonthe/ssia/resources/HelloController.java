@@ -1,4 +1,4 @@
-package com.tchokonthe.ssia;
+package com.tchokonthe.ssia.resources;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
