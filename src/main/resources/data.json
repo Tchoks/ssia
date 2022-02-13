@@ -1,0 +1,38 @@
+[
+  {
+    "_class": "com.tchokonthe.ssia.entities.User",
+    "id": 1,
+    "username": "john",
+    "password": "$2a$10$.4xCMorKC3LeB37zIMgt5OJYA9kvnjuIuT1L2iWqQxqd4R6yzxhZW",
+    "algorithm": "BCRYPT",
+    "authorities": [
+      {
+        "_class": "com.tchokonthe.ssia.entities.Authority",
+        "id": 1,
+        "name": "READ"
+      },
+      {
+        "_class": "com.tchokonthe.ssia.entities.Authority",
+        "id": 2,
+        "name": "WRITE"
+      }
+    ]
+  },
+  {
+    "_class": "com.tchokonthe.ssia.entities.Authority",
+    "id": 1,
+    "name": "READ"
+  },
+  {
+    "_class": "com.tchokonthe.ssia.entities.Authority",
+    "id": 2,
+    "name": "WRITE"
+  },
+  {
+    "_class": "com.tchokonthe.ssia.entities.Product",
+    "id": 1,
+    "name": "Chocolate",
+    "price": 10,
+    "currency": "USD"
+  }
+]

@@ -11,10 +11,19 @@ spring:
     init:
       mode: always
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/spring?allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: root
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: spring
+      authentication-database: admin
+      auto-index-creation: true
+      username: root
+      password: root123
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
 
 
 

@@ -4,7 +4,6 @@ import com.tchokonthe.ssia.entities.User;
 import com.tchokonthe.ssia.repository.UserRepository;
 import com.tchokonthe.ssia.userdetails.model.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -21,13 +20,13 @@ import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
-public class JpaUserDetailsService implements UserDetailsService {
+public class MongoUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final User user = userRepository.findUserByUsername(username).orElseThrow(usernameNotFoundException(username));
+        final User user = userRepository.findByUsername(username).orElseThrow(usernameNotFoundException(username));
         return new CustomUserDetails(user);
     }
 

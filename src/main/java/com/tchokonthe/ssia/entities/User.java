@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -16,24 +20,23 @@ import java.util.List;
  */
 
 
-@Entity
 @Getter
 @Setter
+@Document("user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String username;
+
     private String password;
 
-
-    @Enumerated(EnumType.STRING)
     private EncryptionAlgorithm algorithm;
 
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @DBRef
     private List<Authority> authorities;
 }

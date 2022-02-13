@@ -25,13 +25,18 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private AuthenticationProviderService authenticationProvider;
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    public WebSecurityConfig(@Lazy final AuthenticationProviderService authenticationProvider) {
+    public WebSecurityConfig(@Lazy final AuthenticationProviderService authenticationProvider,
+                             CustomAuthenticationSuccessHandler authenticationSuccessHandler,
+                             CustomAuthenticationFailureHandler authenticationFailureHandler) {
         this.authenticationProvider = authenticationProvider;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.authenticationFailureHandler = authenticationFailureHandler;
+
     }
-
-
 
 
     @Override
@@ -45,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/main", true);
+                //.successHandler(authenticationSuccessHandler)
+               // .failureHandler(authenticationFailureHandler);
     }
 
     @Bean

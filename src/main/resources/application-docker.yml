@@ -1,15 +1,10 @@
 spring:
   application:
     name: spring security in action
-  jpa:
-    hibernate:
-      ddl-auto: none
-    defer-datasource-initialization: true
-    database: mysql
-    show-sql: true
-  sql:
-    init:
-      mode: always
+  data:
+    mongodb:
+      authentication-database: admin
+      auto-index-creation: true
 
 server:
   ssl:
@@ -18,3 +13,7 @@ server:
     key-store-password: bafang
     key-alias: localhostcert
   port: 8081
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG

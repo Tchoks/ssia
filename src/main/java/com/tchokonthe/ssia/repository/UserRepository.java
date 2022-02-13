@@ -1,7 +1,7 @@
 package com.tchokonthe.ssia.repository;
 
 import com.tchokonthe.ssia.entities.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
  * @email (martin.aurele12 @ gmail.com)
  */
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends MongoRepository<User, Integer> {
 
-    Optional<User> findUserByUsername(String username);
+    Optional<User> findByUsername(String username);
 }
